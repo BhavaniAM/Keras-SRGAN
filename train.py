@@ -117,7 +117,7 @@ if __name__== "__main__":
                     help='Batch Size', type=int)
                     
     parser.add_argument('-e', '--epochs', action='store', dest='epochs', default=1000 ,
-                    help='number of iteratios for trainig', type=int)
+                    help='number of iteratioms for trainig', type=int)
                     
     parser.add_argument('-n', '--number_of_images', action='store', dest='number_of_images', default=1000 ,
                     help='Number of Images', type= int)
