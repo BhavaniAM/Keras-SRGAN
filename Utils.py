@@ -16,6 +16,7 @@ from numpy.random import randint
 from skimage.transform import resize
 import os
 import sys
+import cv2
 
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
@@ -72,7 +73,15 @@ def load_data_from_dirs(dirs, ext):
     for d in dirs:
         for f in os.listdir(d): 
             if f.endswith(ext):
-                image = data.imread(os.path.join(d,f))
+                #image = data.imread(os.path.join(d,f))
+                #if len(image.shape) > 2:
+                  #  files.append(image)
+                  #  file_names.append(os.path.join(d,f))
+                #count = count + 1
+                image = cv2.imread(d+f)
+                height, width, channels = image.shape
+                print(height, width, channels)
+                print(len(image.shape))
                 if len(image.shape) > 2:
                     files.append(image)
                     file_names.append(os.path.join(d,f))
@@ -84,12 +93,12 @@ def load_data(directory, ext):
     files = load_data_from_dirs(load_path(directory), ext)
     return files
     
-def load_training_data(directory, ext, number_of_images = 1000, train_test_ratio = 0.8):
+def load_training_data(directory, ext, number_of_images = 2, train_test_ratio = 0.5):
 
     number_of_train_images = int(number_of_images * train_test_ratio)
     
     files = load_data_from_dirs(load_path(directory), ext)
-    
+    print(len(files))
     if len(files) < number_of_images:
         print("Number of image files are less then you specified")
         print("Please reduce number of images to %d" % len(files))
