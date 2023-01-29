@@ -17,6 +17,7 @@ from skimage.transform import resize
 import os
 import sys
 import cv2
+from PIL import Image
 
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
@@ -43,7 +44,11 @@ def lr_images(images_real , downscale):
     
     images = []
     for img in  range(len(images_real)):
-        images.append(resize(images_real[img], [images_real[img].shape[0]//downscale,images_real[img].shape[1]//downscale], interp='bicubic', mode=None))
+        #images.append(imresize(images_real[img], [images_real[img].shape[0]//downscale,images_real[img].shape[1]//downscale], interp='bicubic', mode=None))
+        #print("1. ",images_real[img].shape[0])
+        images.append(cv2.resize(images_real[img], [images_real[img].shape[0]//downscale,images_real[img].shape[1]//downscale], interpolation=cv2.INTER_CUBIC))
+        #new_size = [images_real[img].shape[0]//downscale,images_real[img].shape[1]//downscale]
+        #images.append(images_real[img].resize(new_size,Image.BICUBIC))
     images_lr = array(images)
     return images_lr
     
@@ -80,7 +85,7 @@ def load_data_from_dirs(dirs, ext):
                 #count = count + 1
                 image = cv2.imread(d+f)
                 height, width, channels = image.shape
-                print(height, width, channels)
+                #print("h,w,c = ", height, width, channels)
                 print(len(image.shape))
                 if len(image.shape) > 2:
                     files.append(image)
