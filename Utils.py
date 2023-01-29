@@ -86,7 +86,7 @@ def load_data_from_dirs(dirs, ext):
                 image = cv2.imread(d+f)
                 height, width, channels = image.shape
                 #print("h,w,c = ", height, width, channels)
-                print(len(image.shape))
+                #print(len(image.shape))
                 if len(image.shape) > 2:
                     files.append(image)
                     file_names.append(os.path.join(d,f))
